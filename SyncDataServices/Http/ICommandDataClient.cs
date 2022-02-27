@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using PlatformService.Dtos;
+using CommandsService.Dtos;
 
 namespace PlatformService.SyncDataServices.Http
 {

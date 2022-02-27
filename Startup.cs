@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CommandsService.AsyncDataServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
+using PlatformService.EventProcessing;
 using PlatformService.GraphQL;
 using PlatformService.GraphQL.Command;
 using PlatformService.GraphQL.Platforms;
@@ -101,6 +103,11 @@ namespace PlatformService
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddTransient<ICarService, CarService>();
 
+            services.AddScoped<ICommandRepo, CommandRepo>();
+            
+            //services.AddHostedService<MessageBusSubscriber>();
+
+            services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
             services.AddSingleton<IMessageBusClient, MessageBusClient>();
             services.AddGrpc();
